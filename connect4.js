@@ -17,8 +17,8 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   for(let y = 0; y < height; y++) {
-    board.push(Array.from({ length: width }))
-  };
+    board.push(Array.from({ length: width }));
+  }
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -54,20 +54,30 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  for(let y = height - 1; y >= 0; y--) {
+    if(!board[y][x]) {
+      return y
+    };
+  }
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
+  const currPiece = document.createElement('div');
+  currPiece.classList.add(`player${currPlayer}`);
+  currPiece.classList.add('piece');
+  currPiece.style.top = -50 * (y + 2);
+
+  const spotPicked = document.getElementById(`${y}-${x}`);
+  spotPicked.append(currPiece);
 }
 
 /** endGame: announce game end */
 
 function endGame(msg) {
-  // TODO: pop up alert message
+  alert(msg);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -83,7 +93,7 @@ function handleClick(evt) {
   }
 
   // place piece in board and add to HTML table
-  // TODO: add line to update in-memory board
+  board[y][x] = currPlayer;
   placeInTable(y, x);
 
   // check for win
@@ -92,10 +102,12 @@ function handleClick(evt) {
   }
 
   // check for tie
-  // TODO: check if all cells in board are filled; if so call, call endGame
+  if(board.every(row => row.every(cell + cell))) {
+    return endGame("It's a tie!");
+  }
 
   // switch players
-  // TODO: switch currPlayer 1 <-> 2
+  currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -116,7 +128,7 @@ function checkForWin() {
     );
   }
 
-  // TODO: read and understand this code. Add comments to help you.
+  // checks each way to win and returns true if there's a way to win. if statement finds the winner
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
