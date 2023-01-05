@@ -102,12 +102,17 @@ function handleClick(evt) {
   }
 
   // check for tie
-  if(board.every(row => row.every(cell => cell))) {
+  if(board.every(row => row.every(cell => cell === 1 || cell === 2))) {
     return endGame("It's a tie!");
   }
 
   // switch players
-  currPlayer = currPlayer === 1 ? 2 : 1;
+  // currPlayer = currPlayer === 1 ? 2 : 1;
+  if(currPlayer === 1) {
+    currPlayer === 2;
+  } else {
+    currPlayer === 1
+  };
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
