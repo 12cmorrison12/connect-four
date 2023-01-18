@@ -109,9 +109,9 @@ function handleClick(evt) {
   // switch players
   // currPlayer = currPlayer === 1 ? 2 : 1;
   if(currPlayer === 1) {
-    currPlayer === 2;
+    currPlayer = 2;
   } else {
-    currPlayer === 1
+    currPlayer = 1
   };
 }
 
